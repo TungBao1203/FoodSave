@@ -22,6 +22,7 @@
 ### families/{familyId}/foods/{foodId}
 - name: string
 - category: string
+- storageLocation: string (fridge | freezer | pantry)
 - quantity: number
 - unit: string
 - expiryDate: timestamp?

@@ -4,6 +4,12 @@ enum ExpiryStatus {
   fresh,
 }
 
+enum StorageLocation {
+  fridge,
+  freezer,
+  pantry,
+}
+
 class FoodModel {
   final String id;
   final String name;
@@ -18,6 +24,7 @@ class FoodModel {
   final DateTime? addedDate;
   final String? imageUrl;
   final String? notes;
+  final StorageLocation storageLocation;
 
   const FoodModel({
     required this.id,
@@ -31,6 +38,7 @@ class FoodModel {
     this.addedDate,
     this.imageUrl,
     this.notes,
+    this.storageLocation = StorageLocation.fridge,
   });
 
   // Số ngày còn lại tính từ ngày hết hạn thực tế.
@@ -95,6 +103,7 @@ class FoodModel {
     DateTime? addedDate,
     String? imageUrl,
     String? notes,
+    StorageLocation? storageLocation,
   }) {
     return FoodModel(
       id: id ?? this.id,
@@ -108,6 +117,7 @@ class FoodModel {
       addedDate: addedDate ?? this.addedDate,
       imageUrl: imageUrl ?? this.imageUrl,
       notes: notes ?? this.notes,
+      storageLocation: storageLocation ?? this.storageLocation,
     );
   }
 
@@ -125,6 +135,10 @@ class FoodModel {
       addedDate: _parseDate(json['addedDate']),
       imageUrl: json['imageUrl'] as String?,
       notes: json['notes'] as String?,
+      storageLocation: StorageLocation.values.firstWhere(
+        (value) => value.name == json['storageLocation'],
+        orElse: () => StorageLocation.fridge,
+      ),
     );
   }
 
@@ -142,6 +156,7 @@ class FoodModel {
       'addedDate': addedDate?.toIso8601String(),
       'imageUrl': imageUrl,
       'notes': notes,
+      'storageLocation': storageLocation.name,
     };
   }
 

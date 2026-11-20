@@ -8,6 +8,8 @@ enum FoodFilter {
   fresh,
   expiringSoon,
   expired,
+  fridge,
+  freezer,
 }
 
 class FoodViewModel extends ChangeNotifier {
@@ -63,6 +65,8 @@ class FoodViewModel extends ChangeNotifier {
         FoodFilter.expiringSoon =>
           food.expiryStatus == ExpiryStatus.expiringSoon,
         FoodFilter.expired => food.expiryStatus == ExpiryStatus.expired,
+        FoodFilter.fridge => food.storageLocation == StorageLocation.fridge,
+        FoodFilter.freezer => food.storageLocation == StorageLocation.freezer,
       };
 
       return matchesSearch && matchesFilter;
