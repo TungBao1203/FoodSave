@@ -75,7 +75,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Chính sách bảo vệ người dùng & thanh toán an toàn'),
+                      content: Text(
+                          'Chính sách bảo vệ người dùng & thanh toán an toàn'),
                       duration: Duration(seconds: 1),
                     ),
                   );
@@ -174,10 +175,11 @@ class _PremiumScreenState extends State<PremiumScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: AppColors.accentOrangeLight.withOpacity(0.6),
+                    color: AppColors.accentOrangeLight.withValues(alpha: 0.6),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppColors.accentOrangeBorder.withOpacity(0.5),
+                      color:
+                          AppColors.accentOrangeBorder.withValues(alpha: 0.5),
                       width: 1,
                     ),
                   ),

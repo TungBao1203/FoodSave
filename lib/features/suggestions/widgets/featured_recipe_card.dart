@@ -24,7 +24,7 @@ class FeaturedRecipeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 16,
               offset: const Offset(0, 4),
             ),
@@ -42,7 +42,8 @@ class FeaturedRecipeCard extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) => Container(
                   color: AppColors.primaryContainer,
                   child: const Center(
-                    child: Icon(Icons.restaurant, size: 48, color: AppColors.primary),
+                    child: Icon(Icons.restaurant,
+                        size: 48, color: AppColors.primary),
                   ),
                 ),
               ),
@@ -55,8 +56,8 @@ class FeaturedRecipeCard extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.85),
+                      Colors.black.withValues(alpha: 0.2),
+                      Colors.black.withValues(alpha: 0.85),
                     ],
                     stops: const [0.0, 0.45, 1.0],
                   ),

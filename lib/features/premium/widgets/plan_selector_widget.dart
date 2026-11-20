@@ -69,7 +69,9 @@ class PlanSelectorWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryContainer.withOpacity(0.4) : Colors.white,
+          color: isSelected
+              ? AppColors.primaryContainer.withValues(alpha: 0.4)
+              : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.borderLight,
@@ -92,7 +94,8 @@ class PlanSelectorWidget extends StatelessWidget {
                 ),
                 if (badgeText != null)
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: AppColors.accentOrangeLight,
                       borderRadius: BorderRadius.circular(8),
@@ -124,7 +127,9 @@ class PlanSelectorWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.textPrimary,
                     ),
                   ),
                 ),
