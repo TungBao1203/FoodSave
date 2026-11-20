@@ -6,12 +6,13 @@ class AppConstants {
 
   // Filters for Screen 07
   static const List<String> recipeFilterChips = [
-    'Bữa tối',
-    '≤ 30 phút',
-    'Món Việt',
-    'Dễ nấu',
-    'Ăn chay',
-    'Giàu đạm',
+    'Tất cả',
+    'Ưu tiên nấu trước',
+    'Đủ nguyên liệu',
+    '< 15 phút',
+    '< 30 phút',
+    '< 1 giờ',
+    'Từ 1h - 2h',
   ];
 
   // Premium pricing

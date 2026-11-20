@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../data/models/recipe_model.dart';
 import '../../../data/repositories/recipe_repository.dart';
 
@@ -30,15 +31,7 @@ class SuggestionsViewModel extends ChangeNotifier {
   String _selectedFilter = 'Tất cả';
   String get selectedFilter => _selectedFilter;
 
-  final List<String> _filters = [
-    'Tất cả',
-    'Ưu tiên nấu trước',
-    'Đủ nguyên liệu',
-    '< 15 phút',
-    '< 30 phút',
-    '< 1 giờ',
-    'Từ 1h - 2h',
-  ];
+  final List<String> _filters = AppConstants.recipeFilterChips;
   List<String> get filters => _filters;
 
   Future<void> loadData({bool isFilterChange = false}) async {
