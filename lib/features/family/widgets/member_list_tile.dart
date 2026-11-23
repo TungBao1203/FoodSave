@@ -74,25 +74,25 @@ class MemberListTile extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppColors.dangerLight,
+                  color: AppColors.surfaceVariant,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.danger.withOpacity(0.3)),
+                  border: Border.all(color: AppColors.borderLight),
                 ),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      Icons.delete_outline_rounded,
+                      Icons.person_remove_outlined,
                       size: 14,
-                      color: AppColors.danger,
+                      color: AppColors.textSecondary,
                     ),
                     SizedBox(width: 4),
                     Text(
                       'Xóa',
                       style: TextStyle(
                         fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.danger,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.textSecondary,
                       ),
                     ),
                   ],

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '../../../data/models/family_member_model.dart';
 import '../../../data/repositories/family_repository.dart';
 
@@ -46,5 +46,35 @@ class FamilyViewModel extends ChangeNotifier {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<bool> inviteByPhone(String phone) async {
+    final success = await _familyRepository.inviteByPhone(phone);
+    if (success) {
+      await loadFamilyGroup();
+      _statusMessage = 'Đã gửi lời mời tới $phone';
+      notifyListeners();
+    }
+    return success;
+  }
+
+  Future<void> updateGroupName(String newName) async {
+    await _familyRepository.updateGroupName(newName);
+    await loadFamilyGroup();
+    _statusMessage = 'Đã đổi tên nhóm thành "$newName"';
+    notifyListeners();
+  }
+
+  Future<void> updateCurrentUserName(String newName) async {
+    await _familyRepository.updateCurrentUserName(newName);
+    await loadFamilyGroup();
+    _statusMessage = 'Đã cập nhật tên thành "$newName"';
+    notifyListeners();
+  }
+
+  Future<void> updateCurrentUserAvatarColor(Color newColor) async {
+    await _familyRepository.updateCurrentUserAvatarColor(newColor);
+    await loadFamilyGroup();
+    notifyListeners();
   }
 }

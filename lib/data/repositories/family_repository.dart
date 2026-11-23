@@ -6,6 +6,10 @@ abstract class IFamilyRepository {
   Future<FamilyGroupModel> getFamilyGroup();
   Future<bool> removeMember(String memberId);
   Future<String> generateInviteLink(String method);
+  Future<bool> inviteByPhone(String phone);
+  Future<void> updateGroupName(String newName);
+  Future<void> updateCurrentUserName(String newName);
+  Future<void> updateCurrentUserAvatarColor(Color newColor);
   Future<void> upgradeToPremium();
   Future<List<FoodModel>> getSharedFridgeData();
 }
@@ -22,9 +26,9 @@ class FamilyRepository implements IFamilyRepository {
       members: [
         FamilyMemberModel(
           id: 'mem_1',
-          name: 'Minh',
+          name: 'Vũ',
           role: 'Chủ hộ',
-          avatarLetter: 'M',
+          avatarLetter: 'V',
           avatarBgColor: const Color(0xFFD6ECD9),
           isOwner: true,
           isCurrentUser: true,
@@ -58,6 +62,66 @@ class FamilyRepository implements IFamilyRepository {
     final updatedMembers =
         _familyGroup.members.where((m) => m.id != memberId).toList();
     _familyGroup = _familyGroup.copyWith(members: updatedMembers);
+    return true;
+  }
+
+  @override
+  Future<void> updateGroupName(String newName) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    _familyGroup = _familyGroup.copyWith(name: newName);
+  }
+
+  @override
+  Future<void> updateCurrentUserName(String newName) async {
+    await Future.delayed(const Duration(milliseconds: 50));
+    final trimmed = newName.trim();
+    if (trimmed.isEmpty) return;
+    final initial = trimmed.isNotEmpty ? trimmed[0].toUpperCase() : 'V';
+    final updatedMembers = _familyGroup.members.map((m) {
+      if (m.isCurrentUser || m.isOwner) {
+        return m.copyWith(
+          name: trimmed,
+          avatarLetter: initial,
+        );
+      }
+      return m;
+    }).toList();
+    _familyGroup = _familyGroup.copyWith(members: updatedMembers);
+  }
+
+  @override
+  Future<void> updateCurrentUserAvatarColor(Color newColor) async {
+    await Future.delayed(const Duration(milliseconds: 50));
+    final updatedMembers = _familyGroup.members.map((m) {
+      if (m.isCurrentUser || m.isOwner) {
+        return m.copyWith(avatarBgColor: newColor);
+      }
+      return m;
+    }).toList();
+    _familyGroup = _familyGroup.copyWith(members: updatedMembers);
+  }
+
+  @override
+  Future<bool> inviteByPhone(String phone) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    if (_familyGroup.isFull && !_familyGroup.isPremium) {
+      return false;
+    }
+    // Khi còn chỗ hoặc đã là Premium: tự động thêm thành viên mới
+    final suffix = phone.length >= 4 ? phone.substring(phone.length - 4) : phone;
+    final newMember = FamilyMemberModel(
+      id: 'mem_${DateTime.now().millisecondsSinceEpoch}',
+      name: 'Thành viên (...$suffix)',
+      role: 'Thành viên',
+      avatarLetter: 'T',
+      avatarBgColor: const Color(0xFFE8F5E9),
+      isOwner: false,
+      isCurrentUser: false,
+      joinedDate: DateTime.now(),
+    );
+    _familyGroup = _familyGroup.copyWith(
+      members: [..._familyGroup.members, newMember],
+    );
     return true;
   }
 

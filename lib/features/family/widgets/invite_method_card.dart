@@ -3,12 +3,14 @@ import '../../../core/theme/app_colors.dart';
 
 class InviteMethodCard extends StatelessWidget {
   final bool isLimitReached;
-  final ValueChanged<String> onSelectMethod;
+  final VoidCallback onTapQR;
+  final VoidCallback onTapPhone;
 
   const InviteMethodCard({
     super.key,
     required this.isLimitReached,
-    required this.onSelectMethod,
+    required this.onTapQR,
+    required this.onTapPhone,
   });
 
   @override
@@ -28,52 +30,50 @@ class InviteMethodCard extends StatelessWidget {
               ),
             ),
             if (isLimitReached)
-              const Text(
-                'Đã đạt giới hạn',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.textMuted,
-                  fontWeight: FontWeight.w500,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: AppColors.accentOrangeLight,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  'Đã đạt hạn mức Free',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.accentOrange,
+                  ),
                 ),
               ),
           ],
         ),
         const SizedBox(height: 12),
 
-        // 3 buttons: QR, Link, Code
+        // 2 nút hành động lớn: Quét QR & Mời qua SĐT
         Row(
           children: [
             Expanded(
               child: _buildActionTile(
                 icon: Icons.qr_code_2_rounded,
-                title: 'Mã QR',
-                subtitle: isLimitReached ? 'Khóa do giới hạn' : 'Quét trực tiếp',
-                onTap: () => onSelectMethod('QR'),
+                title: 'Quét mã QR',
+                subtitle: 'Quét vào nhóm ngay',
+                onTap: onTapQR,
               ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 12),
             Expanded(
               child: _buildActionTile(
-                icon: Icons.link_rounded,
-                title: 'Link',
-                subtitle: isLimitReached ? 'Khóa do giới hạn' : 'Gửi qua tin nhắn',
-                onTap: () => onSelectMethod('Link'),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: _buildActionTile(
-                icon: Icons.key_rounded,
-                title: 'Mã Code',
-                subtitle: isLimitReached ? 'Khóa do giới hạn' : 'Nhập 6 số',
-                onTap: () => onSelectMethod('Code'),
+                icon: Icons.phone_android_rounded,
+                title: 'Mời qua SĐT',
+                subtitle: 'Nhập số người thân',
+                onTap: onTapPhone,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
 
-        // Security hint
+        // Ghi chú bảo mật & chia sẻ
         const Row(
           children: [
             Icon(
@@ -84,11 +84,10 @@ class InviteMethodCard extends StatelessWidget {
             SizedBox(width: 6),
             Expanded(
               child: Text(
-                'Lời mời hết hạn sau 24 giờ • Chủ hộ có thể thu hồi bất kỳ lúc nào.',
+                'Chỉ thành viên trong nhóm mới xem được thực phẩm chung.',
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 11.5,
                   color: AppColors.textMuted,
-                  height: 1.3,
                 ),
               ),
             ),
@@ -106,39 +105,49 @@ class InviteMethodCard extends StatelessWidget {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(16),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.borderLight, width: 1),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              icon,
-              size: 24,
-              color: isLimitReached ? AppColors.textMuted : AppColors.primary,
+            Container(
+              padding: const EdgeInsets.all(9),
+              decoration: BoxDecoration(
+                color: AppColors.primaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: AppColors.primary, size: 22),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 10),
             Text(
               title,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: isLimitReached
-                    ? AppColors.textSecondary
-                    : AppColors.textPrimary,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textPrimary,
               ),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 3),
             Text(
               subtitle,
-              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                fontSize: 10,
-                color: AppColors.textMuted,
+                fontSize: 11.5,
+                color: AppColors.textSecondary,
               ),
             ),
           ],
