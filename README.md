@@ -39,23 +39,29 @@ Toàn bộ phân hệ của **Thành viên 3** được triển khai hoàn chỉ
 ---
 
 ### 3. Màn hình 09 – Quản lý gia đình (`lib/features/family/`)
-- **Thẻ Quota gia đình**: Thể hiện nhóm "Nhà mình" đã đạt giới hạn `2/2 người` (gói Miễn phí).
-- **Danh sách thành viên**: Phân định rõ vai trò Chủ nhóm (Owner) và Thành viên (Member).
-- **3 Phương thức mời thành viên**:
-  - Mã mời 6 ký tự (kèm nút Copy).
-  - Quét mã QR định danh gia đình.
-  - Chia sẻ liên kết lời mời qua Zalo / Tin nhắn.
-- **Banner Nâng cấp Premium**: Kêu gọi mở khóa không giới hạn thành viên cho gia đình lớn.
+- **Thẻ Hạn ngạch & Thành viên thu gọn (`FamilyGroupCard`)**:
+  - Thiết kế thu gọn (Compact & Expandable): Thể hiện nhóm "Nhà mình" đã đạt giới hạn `2/2 người` (gói Miễn phí) kèm các avatar mini. Nhấn vào để mở rộng/thu gọn danh sách chi tiết các thành viên.
+  - **Đổi tên nhóm trực tiếp tại Màn 9**: Nút bút chì `[ ✏️ ]` màu xanh ngay cạnh tên nhóm, mở Pop-up đổi tên nhóm nhanh với các gợi ý 1 chạm (`Nhà mình`, `Gia đình nhỏ`, `Tổ ấm thân yêu`, `Bếp ấm`, `Căn bếp vui vẻ`).
+- **Danh sách thành viên chi tiết**: Phân định rõ Chủ hộ (Owner) và Thành viên, hỗ trợ xóa thành viên và bảo vệ an toàn cho chủ nhóm.
+- **2 Phương thức mời thành viên tinh gọn (`InviteMethodCard`)**:
+  - Quét mã QR định danh gia đình (`Icons.qr_code_2_rounded`).
+  - Mời trực tiếp qua Số điện thoại (tự động cập nhật thành viên mới vào danh sách khi còn hạn ngạch).
+- **BottomSheet Cài đặt chuẩn phân cấp (`FamilySettingsSheet`)**:
+  - Mở lên gồm đúng 3 mục tinh gọn: `Thông tin cá nhân`, `Thông tin gia đình`, `Rời nhóm`.
+  - **Thông tin cá nhân**: Giao diện sang trọng, không avatar rườm rà; hỗ trợ chỉnh sửa Tên, SĐT, Email với 1 nút bấm duy nhất; tự động đồng bộ tên và chữ cái đại diện ra ngoài danh sách thành viên tức thì.
+  - **Thông tin gia đình**: Cung cấp thông tin nhóm và 2 công tắc cài đặt thông báo (thực phẩm mới & cảnh báo cận hạn).
+- **Banner Nâng cấp Premium**: Mở khóa không giới hạn thành viên, dẫn trực tiếp sang Màn hình 10.
 
 ---
 
 ### 4. Màn hình 10 – FoodSave Premium (`lib/features/premium/`)
-- **Thẻ Gói Gia đình (Family Plan)**: Nổi bật với biểu tượng vương miện hoàng gia vàng kim.
-- **Bộ chọn chu kỳ thanh toán linh hoạt**:
-  - Gói Tháng: `59.000đ / tháng`.
-  - Gói Năm: `348.000đ / năm` (~ `29.000đ / tháng` - Tiết kiệm 50%).
+- **Thẻ Gói Gia đình (Family Plan)**: Thiết kế thẻ pastel tinh giản (`Color(0xFFF3F9F5)`), biểu tượng vương miện hoàng gia vàng kim, thể hiện rõ đặc quyền không giới hạn thành viên và bảo vệ môi trường.
+- **Bộ chọn gói xếp dọc trực quan (`PlanSelectorWidget`)**:
+  - Gói 1 Năm (Khuyên dùng): `348.000đ / năm` (~ `29.000đ / tháng`), nổi bật với ribbon giảm giá 50% `TIẾT KIỆM 50%`.
+  - Gói 1 Tháng: `59.000đ / tháng`.
+- **Cam kết quyền lợi & An toàn**: Icon khiên bảo vệ trên AppBar mở BottomSheet với 4 cam kết bảo mật & chính sách hoàn tiền minh bạch (Bảo mật thanh toán, Dùng thử miễn phí, Hoàn tiền 100%, Hỗ trợ 24/7).
 - **Bảng so sánh quyền lợi (FREE vs PREMIUM)**: Đối chiếu chi tiết 5 tính năng vượt trội của bản trả phí.
-- **Nút hành động CTA**: Cam kết dùng thử và hủy bất cứ lúc nào, đầy đủ điều khoản minh bạch.
+- **Nút hành động CTA & Điều khoản**: Xác nhận dùng thử, tự động kích hoạt gói Premium và đồng bộ trạng thái về Màn 9 ngay khi quay lại.
 
 ---
 
@@ -107,7 +113,8 @@ lib/
 │   │   ├── views/family_screen.dart
 │   │   ├── viewmodels/family_viewmodel.dart
 │   │   └── widgets/
-│   │       ├── family_quota_card.dart
+│   │       ├── family_group_card.dart
+│   │       ├── family_settings_sheet.dart
 │   │       ├── member_list_tile.dart
 │   │       ├── invite_method_card.dart
 │   │       └── upgrade_family_banner.dart
