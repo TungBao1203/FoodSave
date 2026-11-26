@@ -68,6 +68,12 @@ void main() {
       findsOneWidget,
     );
 
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('scanner_analyze_button')),
+      150,
+      scrollable: find.byType(Scrollable).first,
+    );
+
     final analyzeButton = tester.widget<FilledButton>(
       find.byKey(const Key('scanner_analyze_button')),
     );

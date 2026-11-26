@@ -7,10 +7,12 @@ import 'food_form_screen.dart';
 
 class FridgeScreen extends StatefulWidget {
   final FoodViewModel viewModel;
+  final Future<void> Function(FoodModel)? onCheckCondition;
 
   const FridgeScreen({
     super.key,
     required this.viewModel,
+    this.onCheckCondition,
   });
 
   @override
@@ -401,6 +403,15 @@ class _FridgeScreenState extends State<FridgeScreen> {
                   ],
                 ),
               ),
+              if (widget.onCheckCondition != null)
+                IconButton(
+                  key: Key('condition_${food.id}'),
+                  tooltip: 'Kiểm tra tình trạng',
+                  icon: const Icon(
+                    Icons.health_and_safety_outlined,
+                  ),
+                  onPressed: () => widget.onCheckCondition!(food),
+                ),
               IconButton(
                 key: Key('delete_${food.id}'),
                 tooltip: 'Xóa thực phẩm',
