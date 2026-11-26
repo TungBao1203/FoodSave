@@ -33,18 +33,16 @@ class _FamilyScreenState extends State<FamilyScreen> {
   }
 
   void _onBottomNavTapped(int index) {
-    if (index == 3) return; // already here
-    if (index == 2) {
+    if (index == 3) return;
+
+    if (index == 1) {
+      Navigator.pushReplacementNamed(context, AppRoutes.fridge);
+    } else if (index == 2) {
       Navigator.pushReplacementNamed(context, AppRoutes.suggestions);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            index == 0
-                ? 'Màn hình Trang chủ do Thành viên 1 phụ trách'
-                : 'Màn hình Tủ lạnh do Thành viên 2 phụ trách',
-          ),
-          duration: const Duration(seconds: 1),
+        const SnackBar(
+          content: Text('Trang chủ đang được phát triển.'),
         ),
       );
     }
@@ -96,7 +94,8 @@ class _FamilyScreenState extends State<FamilyScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Xác nhận xóa'),
-        content: Text('Bạn có chắc chắn muốn xóa $memberName khỏi nhóm gia đình?'),
+        content:
+            Text('Bạn có chắc chắn muốn xóa $memberName khỏi nhóm gia đình?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
@@ -149,7 +148,8 @@ class _FamilyScreenState extends State<FamilyScreen> {
                   child: CircularProgressIndicator(color: AppColors.primary),
                 )
               : SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -192,7 +192,8 @@ class _FamilyScreenState extends State<FamilyScreen> {
                         ),
                         child: Column(
                           children: [
-                            ...List.generate(familyGroup.members.length, (index) {
+                            ...List.generate(familyGroup.members.length,
+                                (index) {
                               final member = familyGroup.members[index];
                               return Column(
                                 children: [
@@ -214,7 +215,8 @@ class _FamilyScreenState extends State<FamilyScreen> {
 
                       // Invite options
                       InviteMethodCard(
-                        isLimitReached: familyGroup.isFull && !familyGroup.isPremium,
+                        isLimitReached:
+                            familyGroup.isFull && !familyGroup.isPremium,
                         onSelectMethod: _handleInvite,
                       ),
                       const SizedBox(height: 20),

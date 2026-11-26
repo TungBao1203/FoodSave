@@ -4,6 +4,7 @@ import '../../features/suggestions/views/suggestions_screen.dart';
 import '../../features/recipe_detail/views/recipe_detail_screen.dart';
 import '../../features/family/views/family_screen.dart';
 import '../../features/premium/views/premium_screen.dart';
+import '../../features/fridge/views/fridge_app_screen.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -11,6 +12,7 @@ class AppRoutes {
   static const String suggestions = '/suggestions';
   static const String recipeDetail = '/recipe-detail';
   static const String family = '/family';
+  static const String fridge = '/fridge';
   static const String premium = '/premium';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -31,7 +33,13 @@ class AppRoutes {
         }
         final recipeId = settings.arguments as String?;
         return MaterialPageRoute(
-          builder: (_) => RecipeDetailScreen(recipeId: recipeId ?? 'thit_sot_ca_chua'),
+          builder: (_) =>
+              RecipeDetailScreen(recipeId: recipeId ?? 'thit_sot_ca_chua'),
+          settings: settings,
+        );
+      case fridge:
+        return MaterialPageRoute(
+          builder: (_) => const FridgeAppScreen(),
           settings: settings,
         );
       case family:

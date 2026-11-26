@@ -33,18 +33,16 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
   }
 
   void _onBottomNavTapped(int index) {
-    if (index == 2) return; // already here
-    if (index == 3) {
+    if (index == 2) return;
+
+    if (index == 1) {
+      Navigator.pushReplacementNamed(context, AppRoutes.fridge);
+    } else if (index == 3) {
       Navigator.pushReplacementNamed(context, AppRoutes.family);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            index == 0
-                ? 'Màn hình Trang chủ do Thành viên 1 phụ trách'
-                : 'Màn hình Tủ lạnh do Thành viên 2 phụ trách',
-          ),
-          duration: const Duration(seconds: 1),
+        const SnackBar(
+          content: Text('Trang chủ đang được phát triển.'),
         ),
       );
     }
@@ -136,7 +134,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
                     child: Text(
                       'Bạn chưa lưu công thức nào.\nHãy bấm vào biểu tượng bookmark ở góc trên để lưu nhé!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: AppColors.textSecondary, height: 1.4),
+                      style: TextStyle(
+                          color: AppColors.textSecondary, height: 1.4),
                     ),
                   ),
                 )
@@ -197,7 +196,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
                   onRefresh: _viewModel.refreshSuggestions,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -247,7 +247,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
                               onTap: _viewModel.refreshSuggestions,
                               borderRadius: BorderRadius.circular(8),
                               child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 4, vertical: 2),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -288,7 +289,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: _viewModel.suggestedRecipes.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 10),
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(height: 10),
                             itemBuilder: (context, index) {
                               final recipe = _viewModel.suggestedRecipes[index];
                               return RecipeTileCard(
